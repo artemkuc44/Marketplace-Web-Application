@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Master Dashboard</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/master.css">
+</head>
+<body>
+<header>
+    <h1>Master Dashboard</h1>
+</header>
+
+<nav class="top-bar">
+    <button type="button" th:if="${userRole == 'MASTER'}" th:onclick="|location.href='@{/master}'|">Master Dashboard</button>
+    <button type="button" th:onclick="|location.href='@{/products}'|">Products Catalog</button>
+    <button type="button" th:onclick="|location.href='@{/cart}'|">Cart</button>
+    <button type="button" th:onclick="|location.href='@{/orders}'|">My Order History</button>
+    <form th:action="@{/login/logout}" method="post" class="logout-form">
+        <button type="submit">Logout</button>
+    </form>
+</nav>
+
+<main class="container">
+    <!-- Error Message Section -->
+    <section class="message-section">
+        <p class="message error" th:if="${Master1Error}" th:text="${Master1Error}"></p>
+    </section>
+
+    <!-- Add New Product Form -->
+    <section class="form-section">
+        <h2>Add Product</h2>
+        <form th:action="@{/master/product/add}" method="post" class="add-product-form">
+            <label for="productName">Product Name:</label>
+            <input type="text" id="productName" name="productName" required>
+
+            <label for="price">Price:</label>
+            <input type="text" id="price" name="price" required>
+
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description">
+
+            <button type="submit" class="btn">Add Product</button>
+        </form>
+    </section>
+
+
+    <hr>
+
+    <!-- Product List Section -->
+    <section class="data-section">
+        <h2>All Products</h2>
+        <table class="data-table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th colspan="2">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product : ${products}">
+                <form th:action="@{/master/product/update/{id}(id=${product.id})}" method="post">
+                    <td th:text="${product.id}"></td>
+                    <td>
+                        <input type="text" name="productName" th:value="${product.name}" readonly>
+                    </td>
+                    <td>
+                        <input type="text" name="price" th:value="${product.price}" required>
+                    </td>
+                    <td>
+                        <input type="text" name="description" th:value="${product.description}">
+                    </td>
+                    <td>
+                        <button type="submit" class="btn">Update</button>
+                    </td>
+                </form>
+                <td>
+                    <form th:action="@{/master/product/hide/{id}(id=${product.id})}" method="post">
+                        <input type="hidden" name="hidden" th:value="${!product.getHidden()}" />
+                        <button type="submit" class="btn" th:text="${product.getHidden()} ? 'SHOW' : 'HIDE'"></button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <hr>
+
+    <!-- User List Section -->
+    <section class="data-section">
+        <h2>All Users</h2>
+        <table class="data-table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Password</th>
+                <th>Role</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <form th:action="@{/master/user/update/{id}(id=${user.id})}" method="post">
+                    <td th:text="${user.id}"></td>
+                    <td>
+                        <input type="text" name="username" th:value="${user.username}" required>
+                    </td>
+                    <td>
+                        <input type="password" name="password" placeholder="New Password">
+                    </td>
+                    <td>
+                        <span th:text="${user.role}"></span>
+                        <select name="role">
+                            <option value="USER" th:selected="${user.role == 'USER'}">USER</option>
+                            <option value="MASTER" th:selected="${user.role == 'MASTER'}">MASTER</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn">Update</button>
+                    </td>
+                </form>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <hr>
+
+    <!-- Orders Section -->
+    <section class="data-section">
+        <h2>All Orders</h2>
+        <table class="data-table">
+            <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Total Payed Price</th>
+                <th>Order Date</th>
+                <th>Status</th>
+                <th>Order Details</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order : ${orders}">
+                <td th:text="${order.orderId}"></td>
+                <td th:text="${order.totalPrice}"></td>
+                <td th:text="${#temporals.format(order.orderDate, 'dd MMM yyyy HH:mm')}"></td>
+                <td>
+                    <form th:action="@{/master/orders/updateStatus/{id}(id=${order.orderId})}" method="post">
+                        <input type="hidden" name="delivered" th:value="${!order.isdelivered()}" />
+                        <button type="submit" class="btn" th:text="${order.isdelivered()} ? 'Delivered' : 'Processing'"></button>
+                    </form>
+                </td>
+                <td>
+                    <a th:href="@{/orders/orderDetails/{id}(id=${order.orderId})}" class="details-link">See Order Details</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+</main>
+
+
+</body>
+</html>

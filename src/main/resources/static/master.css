@@ -1,0 +1,375 @@
+/*!* Example: Two-column form layout *!*/
+/*.add-product-form {*/
+/*    display: grid;*/
+/*    !* First column is 150px wide (for labels), second column takes remaining space *!*/
+/*    grid-template-columns: 150px 1fr;*/
+/*    gap: 10px 20px; !* row gap: 10px, column gap: 20px *!*/
+/*    max-width: 600px; !* optional, controls how wide the form can grow *!*/
+/*    margin: 0 auto; !* centers the form horizontally if you like *!*/
+/*}*/
+
+/*.add-product-form label {*/
+/*    text-align: right;      !* Right-align labels *!*/
+/*    font-weight: bold;*/
+/*    padding-top: 8px;       !* Centers label text vertically if needed *!*/
+/*}*/
+
+/*.add-product-form input {*/
+/*    padding: 8px;*/
+/*    border: 1px solid #ccc;*/
+/*    border-radius: 4px;*/
+/*}*/
+
+/*.add-product-form .btn {*/
+/*    !* Make the button span both columns *!*/
+/*    grid-column: 1 / 3;*/
+/*    justify-self: end; !* Align the button to the right on its row *!*/
+/*    padding: 10px 20px;*/
+/*    margin-top: 10px;  !* Optional space above button *!*/
+/*}*/
+
+/* Master Dashboard Specific Styles */
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --accent-color: #1abc9c;
+    --danger-color: #e74c3c;
+    --warning-color: #f39c12;
+    --success-color: #2ecc71;
+    --light-gray: #ecf0f1;
+    --medium-gray: #bdc3c7;
+    --dark-gray: #7f8c8d;
+    --text-dark: #2c3e50;
+    --text-light: #ffffff;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: var(--text-dark);
+    background-color: #f5f7fa;
+}
+
+/* Header Styling */
+header {
+    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+}
+
+header h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* Top Navigation Bar */
+.top-bar {
+    background: white;
+    padding: 0.8rem 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.top-bar button {
+    background-color: white;
+    color: var(--primary-color);
+    border: 1px solid var(--medium-gray);
+    border-radius: 4px;
+    padding: 0.6rem 1.2rem;
+    font-weight: 500;
+    margin-right: 0.8rem;
+    transition: var(--transition);
+}
+
+.top-bar button:hover {
+    background-color: var(--light-gray);
+    border-color: var(--dark-gray);
+    transform: translateY(-2px);
+}
+
+.top-bar .logout-form button {
+    background-color: var(--light-gray);
+    color: var(--danger-color);
+    border: 1px solid var(--danger-color);
+}
+
+.top-bar .logout-form button:hover {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+/* Main Container */
+.container {
+    width: 95%;
+    max-width: 1400px;
+    margin: 2rem auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    padding: 2rem;
+}
+
+/* Section Styling */
+.form-section, .data-section {
+    margin-bottom: 2.5rem;
+    padding: 1.5rem;
+    border-radius: 6px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+section h2 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--light-gray);
+    font-weight: 600;
+}
+
+/* Form Styling */
+.add-product-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.add-product-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+.add-product-form input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--medium-gray);
+    border-radius: 4px;
+    transition: var(--transition);
+}
+
+.add-product-form input:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.25);
+    outline: none;
+}
+
+.add-product-form button {
+    grid-column: 1 / -1;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    width: auto;
+    justify-self: end;
+}
+
+.add-product-form button:hover {
+    background-color: #16a085;
+    transform: translateY(-2px);
+}
+
+/* Table Styling */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1rem;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.data-table thead tr {
+    background-color: var(--primary-color);
+    color: white;
+    text-align: left;
+}
+
+.data-table th,
+.data-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.data-table tbody tr:hover {
+    background-color: rgba(236, 240, 241, 0.5);
+}
+
+.data-table input {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid var(--medium-gray);
+    border-radius: 4px;
+    transition: var(--transition);
+}
+
+.data-table input:focus {
+    border-color: var(--secondary-color);
+    outline: none;
+}
+
+.data-table select {
+    padding: 0.5rem;
+    border: 1px solid var(--medium-gray);
+    border-radius: 4px;
+    background-color: white;
+}
+
+/* Button Styling */
+.btn {
+    padding: 0.6rem 1rem;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.data-table .btn {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.data-table .btn:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+/* Show/Hide Button Styling */
+.data-table form button[type="submit"]:not(.btn) {
+    padding: 0.6rem 1rem;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.data-table form button[text="HIDE"] {
+    background-color: var(--warning-color);
+    color: white;
+    border: none;
+}
+
+.data-table form button[text="SHOW"] {
+    background-color: var(--success-color);
+    color: white;
+    border: none;
+}
+
+.data-table form button[text="HIDE"]:hover {
+    background-color: #e67e22;
+}
+
+.data-table form button[text="SHOW"]:hover {
+    background-color: #27ae60;
+}
+
+/* Order status buttons */
+.data-table form button[text="Processing"] {
+    background-color: var(--warning-color);
+    color: white;
+    border: none;
+}
+
+.data-table form button[text="Delivered"] {
+    background-color: var(--success-color);
+    color: white;
+    border: none;
+}
+
+/* Details Link Styling */
+.details-link {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.details-link:hover {
+    color: #2980b9;
+    text-decoration: underline;
+}
+
+/* Message Section Styling */
+.message-section {
+    margin-bottom: 2rem;
+}
+
+.message {
+    padding: 1rem;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.message.error {
+    background-color: #fdeaea;
+    color: var(--danger-color);
+    border-left: 4px solid var(--danger-color);
+}
+
+.message.success {
+    background-color: #eafaf1;
+    color: var(--success-color);
+    border-left: 4px solid var(--success-color);
+}
+
+/* Separator */
+hr {
+    border: 0;
+    height: 1px;
+    background-color: var(--light-gray);
+    margin: 2rem 0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .container {
+        width: 95%;
+    }
+
+    .add-product-form {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .top-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .top-bar button {
+        margin-bottom: 0.5rem;
+    }
+
+    .data-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+/* Animation for updates */
+@keyframes highlight {
+    0% {
+        background-color: rgba(52, 152, 219, 0.2);
+    }
+    100% {
+        background-color: transparent;
+    }
+}
+
+.highlight {
+    animation: highlight 2s ease-out;
+}

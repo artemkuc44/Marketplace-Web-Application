@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up - Product Manager!</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/nonUser.css">
+
+</head>
+<body>
+<div class="form-container">
+    <h1>Sign Up</h1>
+    <p style="color:red;" th:if="${error}" th:text="${error}"></p>
+    <form method="POST" action="/signup/process">
+        <label for="username">Username:</label>
+        <input type="text" name="username" placeholder="Username" id="username">
+
+        <label for="password">Password:</label>
+        <input type="password" name="password" placeholder="Password" id="password">
+
+        <input type="submit" value="Sign Up">
+    </form>
+    <p>Already have an account? <a href="/login">Log in here</a></p>
+</div>
+</body>
+</html>

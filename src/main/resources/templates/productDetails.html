@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/productDetails.css">
+</head>
+<body>
+<header>
+    <h1>Product Details</h1>
+</header>
+
+<nav class="top-bar">
+    <button type="button" th:if="${userRole == 'MASTER'}" th:onclick="|location.href='@{/master}'|">Master Dashboard</button>
+    <button type="button" th:onclick="|location.href='@{/products}'|">Products Catalog</button>
+    <button type="button" th:onclick="|location.href='@{/cart}'|">Cart</button>
+    <button type="button" th:onclick="|location.href='@{/orders}'|">My Order History</button>
+    <form th:action="@{/login/logout}" method="post" class="logout-form">
+        <button type="submit">Logout</button>
+    </form>
+</nav>
+
+<main class="container">
+    <section class="product-details-section">
+        <div class="product-info">
+            <p><strong>ID:</strong> <span th:text="${product.id}"></span></p>
+            <p><strong>Name:</strong> <span th:text="${product.name}"></span></p>
+            <p><strong>Price:</strong> <span th:text="${product.price}"></span> €</p>
+            <p><strong>Description:</strong> <span th:text="${product.description}"></span></p>
+        </div>
+    </section>
+
+    <section class="order-form-section">
+        <h2>Order This Product</h2>
+        <form th:action="@{/user/order}" method="post" class="order-form">
+            <input type="hidden" name="productId" th:value="${product.id}">
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" min="1" value="1">
+            <button type="submit" class="btn">Order Item</button>
+        </form>
+    </section>
+
+    <section class="navigation-links">
+        <a th:href="@{/products}" class="btn">Back to Products Catalog</a>
+        <a th:href="@{/orders}" class="btn">See Order History</a>
+    </section>
+</main>
+
+</body>
+</html>

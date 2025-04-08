@@ -1,4 +1,4 @@
-package com.demoProj.demoProject;
+package com.marketPlace;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

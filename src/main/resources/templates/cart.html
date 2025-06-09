@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - Cart</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/cart.css">
+</head>
+<body>
+<header>
+    <h1>Your Cart</h1>
+</header>
+
+<nav class="top-bar">
+    <button type="button" th:if="${userRole == 'MASTER'}" th:onclick="|location.href='@{/master}'|">Master Dashboard</button>
+    <button type="button" th:onclick="|location.href='@{/products}'|">Products Catalog</button>
+    <button type="button" th:onclick="|location.href='@{/cart}'|">Cart</button>
+    <button type="button" th:onclick="|location.href='@{/orders}'|">My Order History</button>
+    <form th:action="@{/login/logout}" method="post" class="logout-form">
+        <button type="submit">Logout</button>
+    </form>
+</nav>
+
+<main class="container">
+    <p class="message success" th:if="${placedOrder}" th:text="${placedOrder}"></p>
+
+    <section class="cart-section">
+        <h2>Your Cart</h2>
+        <table class="cart-table">
+            <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Current Piece Price</th>
+                <th>Total Price</th>
+                <th>Quantity</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="cartItem : ${cartItems}">
+                <td th:text="${cartItem.getProduct().getName()}"></td>
+                <td th:text="${cartItem.getSinglePrice()}"></td>
+                <td th:text="${cartItem.getQuantityPrice()}"></td>
+                <td>
+                    <form th:action="@{/cart/update}" method="post" class="inline-form">
+                        <input type="hidden" name="productId" th:value="${cartItem.getProduct().getId()}">
+                        <input type="number" name="quantity" min="1" th:value="${cartItem.quantity}">
+                        <button type="submit" class="btn">Update</button>
+                    </form>
+                </td>
+                <td>
+                    <form th:action="@{/cart/remove}" method="post" class="inline-form">
+                        <input type="hidden" name="productId" th:value="${cartItem.getProduct().getId()}">
+                        <button type="submit" class="btn remove-btn">Remove</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="2" class="total-label">Total Price:</td>
+                <td colspan="3" class="total-value"><span th:text="${totalPrice} + ' €'"></span></td>
+            </tr>
+            <tr>
+                <td colspan="5" class="place-order">
+                    <form method="post" th:action="@{/cart/order}">
+                        <button type="submit" class="btn order-btn">Place Order</button>
+                    </form>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </section>
+
+</main>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/orderDetails.css">
+</head>
+<body>
+<header>
+    <h1>Order Details</h1>
+</header>
+
+<nav class="top-bar">
+    <button type="button" th:if="${userRole == 'MASTER'}" th:onclick="|location.href='@{/master}'|">Master Dashboard</button>
+    <button type="button" th:onclick="|location.href='@{/products}'|">Products Catalog</button>
+    <button type="button" th:onclick="|location.href='@{/cart}'|">Cart</button>
+    <button type="button" th:onclick="|location.href='@{/orders}'|">My Order History</button>
+    <form th:action="@{/login/logout}" method="post" class="logout-form">
+        <button type="submit">Logout</button>
+    </form>
+</nav>
+
+<main class="container">
+    <section class="order-details-section">
+        <table class="data-table">
+            <thead>
+            <tr>
+                <th>Order Item ID</th>
+                <th>Order Id</th>
+                <th>Product Id</th>
+                <th>Product Name</th>
+                <th>Price per Item</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
+                <th>Order Date</th>
+                <th>Delivered</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${orderItems}">
+                <td th:text="${item.orderItemId}"></td>
+                <td th:text="${item.orderId}"></td>
+                <td th:text="${item.productId}"></td>
+                <td th:text="${item.productName}"></td>
+                <td th:text="${item.boughtAtPrice}"></td>
+                <td th:text="${item.quantity}"></td>
+                <td th:text="${item.totalPrice}"></td>
+                <td th:text="${#temporals.format(item.boughtAtTime, 'dd MMM yyyy HH:mm')}"></td>
+                <td th:text="${item.isDelivered()}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+
+
+</body>
+</html>

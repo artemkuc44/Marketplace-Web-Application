@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Catalog</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/products.css">
+</head>
+<body>
+<header>
+    <h1>Product Catalog</h1>
+</header>
+
+<nav class="top-bar">
+    <button type="button" th:if="${userRole == 'MASTER'}" th:onclick="|location.href='@{/master}'|">Master Dashboard</button>
+    <button type="button" th:onclick="|location.href='@{/products}'|">Products Catalog</button>
+    <button type="button" th:onclick="|location.href='@{/cart}'|">Cart</button>
+    <button type="button" th:onclick="|location.href='@{/orders}'|">My Order History</button>
+    <form th:action="@{/login/logout}" method="post" class="logout-form">
+        <button type="submit">Logout</button>
+    </form>
+</nav>
+
+<main class="container">
+    <h1>Welcome, <span th:text="${username}"></span></h1>
+    <p class="message success" th:if="${addedToCart}" th:text="${addedToCart}"></p>
+
+    <section class="product-catalog">
+        <h2>Product Catalog</h2>
+        <h3>Available Products</h3>
+        <table class="product-table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.id}"></td>
+                <td th:text="${product.name}"></td>
+                <td th:text="${product.price} + ' €'"></td>
+                <td>
+                    <a th:href="@{/products/productDetails/{id}(id=${product.id})}" class="details-link">See Product Details</a>
+                </td>
+                <td>
+                    <form th:action="@{/cart/add}" method="post" class="inline-form">
+                        <input type="hidden" name="productId" th:value="${product.id}">
+                        <input type="number" name="quantity" min="1" value="1">
+                        <button type="submit" class="btn">Add to Cart</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+services:
+  # MySQL Database Container
+  mysql-db:
+    image: mysql:8.0
+    container_name: mysql-container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: marketplace
+      MYSQL_USER: marketuser
+      MYSQL_PASSWORD: marketpassword
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - springboot-mysql-net
+
+  # Spring Boot Application Container
+  app:
+    build: .
+    container_name: springboot-app
+    restart: always
+    depends_on:
+      - mysql-db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/marketplace?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: marketuser
+      SPRING_DATASOURCE_PASSWORD: marketpassword
+    ports:
+      - "8080:8080"
+    networks:
+      - springboot-mysql-net
+
+volumes:
+  mysql-data:
+
+networks:
+  springboot-mysql-net:

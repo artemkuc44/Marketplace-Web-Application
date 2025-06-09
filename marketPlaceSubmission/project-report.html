@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COMP30860 - Online Marketplace Project Report</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        header {
+            background: linear-gradient(135deg, #0066cc 0%, #003366 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 600;
+        }
+        h2 {
+            color: #0066cc;
+            border-bottom: 2px solid #0066cc;
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+        h3 {
+            color: #003366;
+            margin-top: 30px;
+        }
+        .project-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        .project-info div {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 10px 15px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+        .task-section {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .task-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .task-weight {
+            background-color: #0066cc;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        .implementation-details {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-left: 4px solid #0066cc;
+            margin: 15px 0;
+        }
+        .screenshot-container {
+            margin: 20px 0;
+            width: 100%;
+        }
+        
+        .image-link {
+            display: inline-block;
+            padding: 12px 20px;
+            margin: 10px 0;
+            background-color: #0066cc;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            text-align: center;
+        }
+        
+        .image-link:hover {
+            background-color: #0055aa;
+        }
+        
+        .image-link i {
+            margin-right: 8px;
+        }
+        
+        .image-caption {
+            display: block;
+            margin-top: 8px;
+            font-style: italic;
+            color: lightgray;
+        }
+        
+        .code-block {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            overflow-x: auto;
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+            margin: 15px 0;
+        }
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .tech-item {
+            background-color: #e6f3ff;
+            color: #0066cc;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        .conclusion {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 40px;
+            border-left: 4px solid #0066cc;
+        }
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #666;
+            border-top: 1px solid #ddd;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Online Marketplace Project Report</h1>
+        <div class="project-info">
+            <div><strong>Course:</strong> COMP30860 Web Development</div>
+            <div><strong>Semester:</strong> Spring 2025</div>
+            <div><strong>Student Name:</strong> Artjoms Kucajevs</div>
+            <div><strong>Student Number:</strong> 22385231</div>
+        </div>
+    </header>
+
+    <div class="task-section">
+        <div class="task-header">
+            <h2>Project Overview</h2>
+        </div>
+        <p>This report documents the implementation of an Online Marketplace web application developed using Spring Boot, Thymeleaf, HTML, CSS, and packaged using Maven and Docker. The application allows users to browse products, add them to a shopping cart, and make purchases. It supports two user roles: Customers and Administrator, where admins have extra privelages such as updateing user details, product details(except for name as per brief) including hiding without deleting and order status. All done with intuitive cascading ie. if changing a products price it will remain unchanged in any previous order history in which it is present.</p>
+        
+        <p><strong>Note: All screenshots are available as clickable links. Click on any blue button to open the full image in a new tab.</strong></p>
+        
+        <div class="tech-stack">
+            <div class="tech-item">Maven</div>
+            <div class="tech-item">Spring Boot</div>
+            <div class="tech-item">Thymeleaf</div>
+            <div class="tech-item">HTML & CSS</div>
+            <div class="tech-item">Docker</div>
+        </div>
+    </div>
+
+    <div class="task-section">
+        <div class="task-header">
+            <h2>Task 1: Setting Up Maven & Docker</h2>
+            <div class="task-weight">2%</div>
+        </div>
+        
+        <h3>Requirements</h3>
+        <ul>
+            <li>Create a pom.xml file to define dependencies and configure Maven to build the application</li>
+            <li>Package the application into a Docker container for easy deployment</li>
+        </ul>
+        
+        <h3>Implementation</h3>
+        <div class="implementation-details">
+            <p>To containerize the application, I implemented a multi-container setup using Docker Compose that includes both the Spring Boot application and a MySQL database. I created a simple Dockerfile that uses OpenJDK 21 as the base image and copies the compiled JAR file into the container. The docker-compose.yml file defines the two services: a MySQL database container with appropriate environment variables for database initialization, and the Spring Boot application container built from the Dockerfile. I configured network connections between the containers and set up volume persistence for the database data. This approach provides a complete, isolated environment that's easy to deploy and ensures consistent behavior across different systems.</p>
+        </div>
+        
+        <div class="code-block">
+            <pre>FROM openjdk:21
+COPY target/marketPlace-0.0.1-SNAPSHOT.jar app.jar
+ENTRYPOINT ["java", "-jar", "app.jar"]</pre>
+        </div>
+        
+        <div class="code-block">
+            <pre>services:
+  # MySQL Database Container
+  mysql-db:
+    image: mysql:8.0
+    container_name: mysql-container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: marketplace
+      MYSQL_USER: marketuser
+      MYSQL_PASSWORD: marketpassword
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - springboot-mysql-net
+
+  # Spring Boot Application Container
+  app:
+    build: .
+    container_name: springboot-app
+    restart: always
+    depends_on:
+      - mysql-db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/marketplace?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: marketuser
+      SPRING_DATASOURCE_PASSWORD: marketpassword
+    ports:
+      - "8080:8080"
+    networks:
+      - springboot-mysql-net
+
+volumes:
+  mysql-data:
+
+networks:
+  springboot-mysql-net:</pre>
+        </div>
+        
+        <div class="screenshot-container">
+            <a href="dockerRunning.png" class="image-link" target="_blank">
+                <i>🔍</i> View Docker Containers Screenshot
+                <span class="image-caption">Figure 1: Docker container successfully running the application</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="task-section">
+        <div class="task-header">
+            <h2>Task 2: Catalogue</h2>
+            <div class="task-weight">4%</div>
+        </div>
+        
+        <h3>Requirements</h3>
+        <ul>
+            <li>Implement a product catalogue with at least 10 items</li>
+            <li>The catalogue must include:
+                <ul>
+                    <li>A list page where users can browse all available products</li>
+                    <li>A product details page for each item, displaying name, price, description, and a purchase button</li>
+                </ul>
+            </li>
+            <li>Users should be able to click on an item to view its details</li>
+        </ul>
+        
+        <h3>Implementation</h3>
+        <div class="implementation-details">
+            <p>I implemented the Product model as a Java class with all required attributes (id, name, price, description, hidden status) and created a ProductRepository to handle data access operations using JdbcTemplate. The ProductController manages requests to view the product list and individual product details, ensuring users are authenticated before accessing the catalogue. The products.html template displays products in a structured table format with details and action links, while the productDetails.html template provides a comprehensive view of individual products.</p>
+        </div>
+        
+        <div class="code-block">
+            <pre>
+@GetMapping("")
+public String showProducts(Model model, HttpSession session) {
+    // Ensure user is logged in
+    String loggedInUser = (String) session.getAttribute("loggedInUsername");
+    Long userId = (Long) session.getAttribute("loggedInUserId");
+
+    if (loggedInUser == null || userId == null) {
+        return "redirect:/login";
+    }
+
+    model.addAttribute("username", loggedInUser);
+    model.addAttribute("products", productService.getAllNonHiddenProducts());
+    return "products";
+}</pre>
+        </div>
+        
+        <div class="screenshot-container">
+            <a href="productCatalog.png" class="image-link" target="_blank">
+                <i>🔍</i> View Product Catalogue Screenshot
+                <span class="image-caption">Figure 2: Product catalogue listing page showing multiple products</span>
+            </a>
+        </div>
+        
+        <div class="screenshot-container">
+            <a href="productDetails.png" class="image-link" target="_blank">
+                <i>🔍</i> View Product Details Screenshot
+                <span class="image-caption">Figure 3: Product details page showing name, price, description, and purchase button</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="task-section">
+        <div class="task-header">
+            <h2>Task 3: Shopping Cart</h2>
+            <div class="task-weight">4%</div>
+        </div>
+        
+        <h3>Requirements</h3>
+        <ul>
+            <li>Implement a shopping cart that allows users to:
+                <ul>
+                    <li>View the list of selected items</li>
+                    <li>Adjust the quantity of each item</li>
+                    <li>Remove items from the cart</li>
+                    <li>See the price per item and the total cost</li>
+                </ul>
+            </li>
+        </ul>
+        
+        <h3>Implementation</h3>
+        <div class="implementation-details">
+            <p>I implemented the shopping cart using a CartItem model that associates Products with quantities, providing methods to calculate individual and total prices. The cart data is stored in a dedicated database table managed by CartRepository, with a CartService abstraction layer for business logic. The CartController handles cart operations (view, add, update, remove, order) with authentication checks. The cart.html Thymeleaf template displays items with dynamic pricing, quantity controls, and ordering functionality.</p>
+        </div>
+        
+        <div class="code-block">
+            <pre>
+@GetMapping("")
+public String showCart(Model model, HttpSession session) {
+    // Authentication check
+    String loggedInUser = (String) session.getAttribute("loggedInUsername");
+    Long userId = (Long) session.getAttribute("loggedInUserId");
+
+    if (loggedInUser == null || userId == null) {
+        return "redirect:/login";
+    }
+
+    List<CartItem> cartItems = cartService.getCartItemsByUserId(userId);
+    model.addAttribute("cartItems", cartItems);
+    
+    // Calculate total price
+    double totalPrice = 0;
+    for (CartItem cartItem : cartItems) {
+        totalPrice += cartItem.getProduct().getPrice() * cartItem.getQuantity();
+    }
+    model.addAttribute("totalPrice", totalPrice);
+    return "cart";
+}</pre>
+        </div>
+        
+        <div class="screenshot-container">
+            <a href="cartSS.png" class="image-link" target="_blank">
+                <i>🔍</i> View Shopping Cart Screenshot
+                <span class="image-caption">Figure 4: Shopping cart page showing selected items, quantities, and prices</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="task-section">
+        <div class="task-header">
+            <h2>Task 4: Customer Features</h2>
+            <div class="task-weight">4%</div>
+        </div>
+        
+        <h3>Requirements</h3>
+        <ul>
+            <li>Customers must sign up and log in to purchase items</li>
+            <li>Logged-in customers should be able to view their order history</li>
+        </ul>
+        
+        <h3>Implementation</h3>
+        <div class="implementation-details">
+            <p>I created a User model with Role-based authentication (USER/MASTER roles) and implemented SignupController and LoginController for registration and authentication. The SignupController validates new user submissions, while LoginController handles authentication and session management. After login, user details are stored in HttpSession for persistent identification. The OrdersController provides authenticated users access to their order history through dedicated endpoints, with the orders.html template displaying past orders and details.</p>
+        </div>
+        
+        <div class="code-block">
+            <pre>
+@PostMapping("/process")
+public String processLogIn(
+        @RequestParam("username") String username,
+        @RequestParam("password") String password,
+        Model model,
+        HttpSession session) {
+    if (!userService.userExists(username) || !userService.correctPassword(username, password)) {
+        // Error handling
+        return "login";
+    }
+
+    // Store user details in session
+    session.setAttribute("loggedInUserId", userService.getUserByUsername(username).getId());
+    session.setAttribute("loggedInUsername", username);
+    session.setAttribute("loggedInRole", userService.getUserByUsername(username).getRole().toString());
+
+    if (userService.getUserByUsername(username).getRole().equals(Role.MASTER)) {
+        return "redirect:/master";
+    } else {
+        return "redirect:/products";
+    }
+}</pre>
+        </div>
+        
+        <div class="screenshot-container">
+            <a href="logIn.png" class="image-link" target="_blank">
+                <i>🔍</i> View Login Interface Screenshot
+                <span class="image-caption">Figure 5: User login and registration interface</span>
+            </a>
+        </div>
+        
+        <div class="screenshot-container">
+            <a href="orderHistory.png" class="image-link" target="_blank">
+                <i>🔍</i> View Order History Screenshot
+                <span class="image-caption">Figure 6: Customer order history page displaying past purchases</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="task-section">
+        <div class="task-header">
+            <h2>Task 5: Marketplace Owner (Administrator)</h2>
+            <div class="task-weight">2%</div>
+        </div>
+        
+        <h3>Requirements</h3>
+        <ul>
+            <li>The administrator must be able to:
+                <ul>
+                    <li>Add new products</li>
+                    <li>Modify product details (except the name)</li>
+                    <li>Review orders and update their status</li>
+                    <li>Hide products (but not delete them)</li>
+                </ul>
+            </li>
+            <li>When changing an item's price, historical orders must retain the original price paid</li>
+        </ul>
+        
+        <h3>Implementation</h3>
+        <div class="implementation-details">
+            <p>I implemented administrator capabilities through a MASTER role in the User model and created a MasterController with a comprehensive dashboard for product and order management. The dashboard allows administrators to add products, modify details, hide/show products, and update order status. The OrderItem model preserves purchase prices by storing the bought_at_price at the time of purchase, ensuring price history is maintained even when product prices change. Only users with the MASTER role can access these features, secured with session-based authentication checks.</p>
+        </div>
+        
+        <div class="code-block">
+            <pre>
+@PostMapping("/product/add")
+public String addProduct(
+        @RequestParam("productName") String productName,
+        @RequestParam("price") double price,
+        @RequestParam("description") String description,
+        HttpSession session) {
+    String role = (String) session.getAttribute("loggedInRole");
+    if (role == null || !role.equals("MASTER")) {
+        return "redirect:/login";
+    }
+
+    Product product = new Product();
+    product.setName(productName);
+    product.setPrice(price);
+    product.setDescription(description);
+    productService.addProduct(product);
+
+    return "redirect:/master";
+}</pre>
+        </div>
+        
+        <div class="screenshot-container">
+            <a href="localhost_8080_master.png" class="image-link" target="_blank">
+                <i>🔍</i> View Admin Dashboard
+                <span class="image-caption">Figure 7: Administrator management interface</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="task-section">
+        <div class="task-header">
+            <h2>Task 6: Demo Video</h2>
+            <div class="task-weight">2%</div>
+        </div>
+        
+        <h3>Requirements</h3>
+        <ul>
+            <li>Record a screen capture video demonstrating the marketplace in action</li>
+            <li>The video must include:
+                <ul>
+                    <li>Logging in as an administrator to add products</li>
+                    <li>Logging in as different customers to make purchases</li>
+                </ul>
+            </li>
+        </ul>
+        
+        <h3>Implementation</h3>
+        <div class="implementation-details">
+            <p>I recorded a demonstration video showcasing the key features of the marketplace. The video includes:
+            <ul>
+                <li>Administrator login and product management (adding, modifying, hiding products)</li>
+                <li>Administrator order management (reviewing orders and updating status)</li>
+                <li>Customer registration and login process</li>
+                <li>Browsing products and viewing product details</li>
+                <li>Adding products to cart, adjusting quantities, and removing items</li>
+                <li>Completing purchases striaght from product details and from cart</li>
+                <li>Viewing order history</li>
+            </ul>
+            The video demonstrates the complete user flow from both administrator and customer perspectives.</p>
+        </div>
+        
+        <div class="screenshot-container">
+            <a href="webDevVideoDemoFinal.mp4" class="image-link" target="_blank">
+                <i>🎬</i> View Demo Video
+                <span class="image-caption">Figure 9: Screen capture demonstration of marketplace functionality</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="task-section">
+        <div class="task-header">
+            <h2>Database Design</h2>
+        </div>
+        
+        <div class="implementation-details">
+            <p>The application uses a MySQL database with the following core tables:</p>
+            <ul>
+                <li><strong>users:</strong> Stores user information (id, username, password, role)</li>
+                <li><strong>products:</strong> Contains product details (id, name, price, description, hidden)</li>
+                <li><strong>carts:</strong> Links users to products with quantities (user_id, product_id, quantity)</li>
+                <li><strong>orders:</strong> Records order information (order_id, user_id, order_date, total_price, delivered)</li>
+                <li><strong>order_items:</strong> Stores individual items in each order with price history (order_item_id, order_id, product_id, bought_at_price, quantity)</li>
+            </ul>
+            <p>Tables are initialized on application startup using JdbcTemplate in the repository classes, with appropriate foreign key relationships to maintain data integrity.</p>
+        </div>
+    </div>
+
+    <div class="task-section">
+        <div class="task-header">
+            <h2>MVC Architecture Implementation</h2>
+        </div>
+        
+        <div class="implementation-details">
+            <p>The application implements the Model-View-Controller (MVC) architecture:</p>
+            <ul>
+                <li><strong>Models:</strong> Java classes (User, Product, CartItem, Order, OrderItem) that represent data entities</li>
+                <li><strong>Views:</strong> Thymeleaf templates (products.html, cart.html, orders.html, master.html) that render dynamic HTML</li>
+                <li><strong>Controllers:</strong> Spring controllers (ProductController, CartController, OrdersController, MasterController) that handle HTTP requests and coordinate between models and views</li>
+                <li><strong>Services:</strong> Service layer (UserService, ProductService, CartService, OrderService) that encapsulates business logic</li>
+                <li><strong>Repositories:</strong> Data access layer (UserRepository, ProductRepository, CartRepository, OrderRepository) that handles database operations</li>
+            </ul>
+            <p>This clear separation of concerns promotes maintainability, testability, and code organization.</p>
+        </div>
+    </div>
+
+    <div class="conclusion">
+        <h2>Conclusion</h2>
+        <p>This project successfully implements all required features of an online marketplace using Java Spring Boot, HTML, CSS, Thymeleaf, and Docker. The application provides a complete e-commerce experience with product browsing, shopping cart functionality, user authentication, and administrative capabilities. The MVC architecture with clear separation of concerns ensures maintainability and extensibility, while containerization with Docker simplifies deployment across environments.</p>
+    </div>
+
+    <footer>
+        <p>COMP30860 Web Development | Spring 2025 | Artjoms Kucajevs</p>
+    </footer>
+</body>
+</html>

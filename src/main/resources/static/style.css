@@ -1,0 +1,153 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* Normal document flow - no flex layout or min-height here */
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Container */
+.container {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+}
+
+/* Header */
+header {
+    background: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 1.8rem;
+}
+
+/* Top Navigation Bar */
+.top-bar {
+    background: #fff;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #ccc;
+}
+
+.top-bar button {
+    background: #0779e4;
+    border: none;
+    color: #fff;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.top-bar button:hover {
+    background: #055a9c;
+}
+
+.logout-form {
+    margin: 0;
+}
+
+/* Example Cart or Main Section */
+.cart-section {
+    margin-top: 20px;
+}
+
+.cart-section h2 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* Example Table Styles */
+.cart-table, .product-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.cart-table thead, .product-table thead {
+    background: #0779e4;
+    color: #fff;
+}
+
+.cart-table th, .cart-table td,
+.product-table th, .product-table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+/* Inline Forms for Actions */
+.inline-form {
+    display: inline-block;
+    margin: 0;
+}
+
+/* Button Styles */
+.btn {
+    background: #0779e4;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn:hover {
+    background: #055a9c;
+}
+
+.remove-btn {
+    background: #d9534f;
+}
+
+.remove-btn:hover {
+    background: #c9302c;
+}
+
+/* Message Styling */
+.message {
+    margin: 15px 0;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.message.success {
+    background: #dff0d8;
+    color: #3c763d;
+}
+
+/* Footer (normal flow, no position: fixed) */
+footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+
+/* Additional product-catalog styles (optional) */
+.product-catalog h2,
+.product-catalog h3 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+
